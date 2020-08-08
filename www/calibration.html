@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--
+This is an example HTML that shows how WebGazer can be used on a website.
+This file provides the additional features:
+  * An integrated, intuitive and sleek action bar with an informative "help" module accessible at all times
+  * Structured 9-point calibration system
+  * Accuracy measure of predictions based on calibration process
+  * Video feedback regarding face positioning
+  * Improved eye predictions visible to the user
+Instructions on use can be found in the README repository.
+-->
+<html>
+
+<head>
+  <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+  <meta http-equiv='cache-control' content='no-cache'>
+  <meta http-equiv='expires' content='0'>
+  <meta http-equiv='pragma' content='no-cache'>
+  <TITLE>WebGazer Demo</TITLE>
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="./css/question_style.css"> -->
+  <script async type="text/javascript" src="./webgazer.js"></script>
+  <style>
+    /* The Modal (background) */
+    .modall {
+      display: none;
+      /* Hidden by default */
+      position: absolute;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      padding-top: 100px;
+      /* Location of the box */
+      left: 460px;
+      top: 120px;
+      width: 400;
+      /* Full width */
+      height: 300;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body LANG="en-US" LINK="#0000ff" DIR="LTR">
+  <canvas id="plotting_canvas" width="500" height="500" style="cursor:crosshair;"></canvas>
+
+  <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./node_modules/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="./node_modules/localforage/dist/localforage.js"></script>
+
+  <script src="./js/main.js?2"></script>
+  <script src="./js/calibration.js"></script>
+  <script src="./js/precision_calculation.js"></script>
+  <script src="./js/precision_store_points.js"></script>
+
+
+  <!-- Calibration points -->
+  <div class="calibrationDiv">
+    <input type="button" class="Calibration" id="Pt1"></input>
+    <input type="button" class="Calibration" id="Pt2"></input>
+    <input type="button" class="Calibration" id="Pt3"></input>
+    <input type="button" class="Calibration" id="Pt4"></input>
+    <input type="button" class="Calibration" id="Pt5"></input>
+    <input type="button" class="Calibration" id="Pt6"></input>
+    <input type="button" class="Calibration" id="Pt7"></input>
+    <input type="button" class="Calibration" id="Pt8"></input>
+    <input type="button" class="Calibration" id="Pt9"></input>
+  </div>
+
+  <!-- <div id="helpModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+       <div class="modal-content">
+        <div class="modal-body">
+          <img src="media/example/calibration.png" width="100%" height="100%" alt="webgazer demo instructions"></img>
+        </div>
+        <div class="modal-footer">
+          <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="Restart()">Calibrate</button>
+        </div>
+      </div>
+
+    </div>
+  </div> -->
+  <div id="myModal" class="modall">
+
+
+    <div class="modal-content">
+      <span class="close">Continue</span>
+      <p>You doesn't seem to pay attention</p>
+    </div>
+
+  </div>
+  <!-- <button type="button" id="cli" class="btn btn-primary">Calibrate</button> -->
+  <div id="result"></div>
+  <div class="coordinates">x:<span id="x-coordinate"></span> y:<span id="y-coordinate"></span></div>
+  <!--<video width="300" height ="300" style="position:absolute;top:120px;left:760px;" controls  id="oo">
+    <source src="abcd.mp4" type="video/mp4">
+    Your browser does not support HTML video.
+    </video>-->
+  <!-- <button type="button" id="bb" class="btn btn-primary" name="iframe_a" style="position:absolute;top:70px;left:750px;width:100px;">Start the session</button> -->
+  <button type="button" id="bb" class="btn btn-primary" name="iframe_a"
+    style="position:absolute;top:150px;left:1100px;width:100px;">Start the session</button>
+  <iframe style="position:absolute;top:120px;left:300px;display:none;height:500px;width:800px;" name="iframe_a"
+    src="https://us02web.zoom.us/j/89896873900?pwd=Q21QcjNFN3d4cEZsdUlEQmxoWDhqZz09#success" id="f"></iframe>
+  <button type="button" id="cc" class="btn btn-primary" style="position:absolute;top:200px;left:1100px;width:100px;">See
+    result</button>
+  <!-- <script>
+    var nw=document.getElementById("cc");
+  nw.onclick=function(){
+    x_array.push(time_com);
+    x_array.push(total_time);
+    localStorage.setItem('hey',JSON.stringify(x_array));
+window.document.location='./result.htm';
+  };
+  </script> -->
+
+
+  <!-- Latest compiled JavaScript -->
+  <script src="./js/resize_canvas.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- <script>
+    var o=document.getElementById("cli");
+    o.onclick=function(){
+Restart();
+o.style.display="none";
+    };
+    </script> -->
+  <script>
+    var fr = document.getElementById("bb");
+    fr.onclick = function () {
+      document.getElementById("f").style.display = "block";
+
+    }
+  </script>
+
+</body>
+
+</html>
