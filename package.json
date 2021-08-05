@@ -22,15 +22,15 @@
     "mime": "^2.4.3",
     "sweetalert": "^2.1.2"
   },
-  "description": "EANA- the educational attentiveness analyzer",
+  "description": "Tech education",
   "bugs": {
-    "url": "https://github.com/MuskanGarg07/EANA/issues"
+    "url": "https://github.com/Ritwik880"
   },
-  "homepage": "https://github.com/MuskanGarg07/EANA#readme",
+  "homepage": "https://github.com/Ritwik880",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "muskan, kshitiz, saransh",
+  "author": "ritwik",
   "license": "ISC"
 }
